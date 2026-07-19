@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Farhana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-align: center;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+
+        .cake-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 30px;
+        }
+
+        .cake-layer {
+            background-color: #f7a8b8; /* Pink frosting */
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.1);
+        }
+
+        .cake-bottom {
+            width: 250px;
+            height: 80px;
+            background-color: #ffd1dc;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .cake-middle {
+            width: 200px;
+            height: 60px;
+            background-color: #ffb6c1;
+            margin-bottom: -10px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .cake-top {
+            width: 150px;
+            height: 50px;
+            background-color: #ff99cc;
+            margin-bottom: -10px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .frosting-drip {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 0 0 20px 20px;
+            top: 0;
+        }
+
+        .drip1 { width: 30px; height: 40px; left: 10%; }
+        .drip2 { width: 40px; height: 30px; left: 30%; }
+        .drip3 { width: 25px; height: 50px; left: 50%; }
+        .drip4 { width: 35px; height: 35px; left: 70%; }
+        .drip5 { width: 20px; height: 45px; left: 85%; }
+
+
+        .candles {
+            display: flex;
+            justify-content: space-around;
+            width: 100px;
+            position: absolute;
+            top: -40px; /* Position above the top layer */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .candle {
+            width: 12px;
+            height: 40px;
+            background: repeating-linear-gradient(
+                45deg,
+                #fff,
+                #fff 5px,
+                #ff6b6b 5px,
+                #ff6b6b 10px
+            );
+            border-radius: 3px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .candle:hover {
+            transform: scale(1.1);
+        }
+
+        .flame {
+            width: 15px;
+            height: 25px;
+            background-color: #ffcc00;
+            border-radius: 50% 50% 20% 20%;
+            position: absolute;
+            top: -22px;
+            left: -1.5px;
+            box-shadow: 0 0 15px #ff9900, 0 0 30px #ff6600;
+            animation: flicker 0.5s infinite alternate;
+            transform-origin: bottom center;
+            opacity: 1; /* Initially visible */
+            transition: opacity 0.5s ease-out;
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-2deg); background-color: #ffcc00; }
+            50% { transform: scale(1.1) rotate(2deg); background-color: #ffeb3b; }
+            100% { transform: scale(0.9) rotate(-1deg); background-color: #ff9800; }
+        }
+        
+        /* Class to hide flame when "blown out" */
+        .flame.extinguished {
+            opacity: 0;
+            animation: none;
+        }
+        
+        .smoke {
+            position: absolute;
+            top: -30px;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            background: rgba(150, 150, 150, 0.5);
+            border-radius: 50%;
+            opacity: 0;
+        }
+        
+        @keyframes puff {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-50px) scale(3); }
+        }
+        
+        .smoke.active {
+            animation: puff 1s ease-out forwards;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% { opacity: 1; transform: translateY(-100vh) rotate(0deg); }
+            100% { opacity: 1; transform: translateY(100vh) rotate(360deg); }
+        }
+        
+        #message-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 90%;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 1s ease;
+        }
+        
+        #message-container.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .message-text {
+            color: #333;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .start-btn {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-family: 'Fredoka One', cursive;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .start-btn:hover {
+            background-color: #ff5252;
+            transform: scale(1.05);
+        }
+        
+        .instruction {
+            color: #fff;
+            font-size: 1.1rem;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Start Button (Needed for audio policy in many browsers) -->
+    <button id="start-btn" class="start-btn" onclick="startExperience()">Buka Kartu Ucapan</button>
+
+    <div id="main-content" style="display: none; flex-direction: column; align-items: center;">
+        <h1 class="text-4xl md:text-6xl">Selamat Ulang Tahun yang ke-11 Farhana</h1>
+        
+        <div class="instruction">Sentuh/klik apinya untuk meniup lilin! 💨</div>
+
+        <div class="cake-container">
+            <div class="cake-top cake-layer">
+                <div class="frosting-drip drip1"></div>
+                <div class="frosting-drip drip2"></div>
+                <div class="frosting-drip drip3"></div>
+                
+                <div class="candles">
+                    <div class="candle" onclick="blowOut(this)">
+                        <div class="flame"></div>
+                        <div class="smoke"></div>
+                    </div>
+                    <div class="candle" onclick="blowOut(this)">
+                        <div class="flame"></div>
+                        <div class="smoke"></div>
+                    </div>
+                    <div class="candle" onclick="blowOut(this)">
+                        <div class="flame"></div>
+                        <div class="smoke"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="cake-middle cake-layer">
+                <div class="frosting-drip drip4"></div>
+                <div class="frosting-drip drip5"></div>
+                <div class="frosting-drip drip1" style="left: 60%"></div>
+            </div>
+            <div class="cake-bottom cake-layer">
+                 <div class="frosting-drip drip2" style="left: 20%"></div>
+                 <div class="frosting-drip drip3" style="left: 70%"></div>
+            </div>
+        </div>
+
+        <div id="message-container">
+            <h2 class="text-2xl font-bold text-pink-500 mb-2">Selamat datang di angka kembar (11) kembara ✨</h2>
+            <p class="message-text">Cieeee tuami cici wkwkwk. Semoga sehat selalu dan doa terbaik untukmu </p>
+            <p class="message-text font-bold">Kurangi mager wkwkw</p>
+        </div>
+    </div>
+
+    <!-- Tone.js for generating music instead of loading external audio file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    
+    <script>
+        let candlesBlown = 0;
+        const totalCandles = 3;
+        let synth;
+        let isMusicPlaying = false;
+
+        // Note sequence for "Happy Birthday"
+        const notes = [
+            { note: "C4", duration: "8n" }, { note: "C4", duration: "8n" },
+            { note: "D4", duration: "4n" }, { note: "C4", duration: "4n" },
+            { note: "F4", duration: "4n" }, { note: "E4", duration: "2n" },
+            
+            { note: "C4", duration: "8n" }, { note: "C4", duration: "8n" },
+            { note: "D4", duration: "4n" }, { note: "C4", duration: "4n" },
+            { note: "G4", duration: "4n" }, { note: "F4", duration: "2n" },
+            
+            { note: "C4", duration: "8n" }, { note: "C4", duration: "8n" },
+            { note: "C5", duration: "4n" }, { note: "A4", duration: "4n" },
+            { note: "F4", duration: "4n" }, { note: "E4", duration: "4n" }, { note: "D4", duration: "4n" },
+            
+            { note: "Bb4", duration: "8n" }, { note: "Bb4", duration: "8n" },
+            { note: "A4", duration: "4n" }, { note: "F4", duration: "4n" },
+            { note: "G4", duration: "4n" }, { note: "F4", duration: "2n" }
+        ];
+
+        async function startExperience() {
+            // Hide button, show content
+            document.getElementById('start-btn').style.display = 'none';
+            document.getElementById('main-content').style.display = 'flex';
+            
+            // Initialize Audio (requires user interaction first)
+            await Tone.start();
+            setupMusic();
+            playMusic();
+        }
+
+        function setupMusic() {
+            // Setup a synth sound
+            synth = new Tone.Synth({
+                oscillator: { type: "triangle" },
+                envelope: { attack: 0.05, decay: 0.1, sustain: 0.3, release: 1 }
+            }).toDestination();
+            
+            // Optional: Add some delay/reverb for a nicer sound
+            const reverb = new Tone.Reverb(1.5).toDestination();
+            synth.connect(reverb);
+        }
+
+        function playMusic() {
+            if (isMusicPlaying) return;
+            isMusicPlaying = true;
+            
+            let time = Tone.now();
+            // Slow down the tempo slightly
+            const tempoMultiplier = 0.8; 
+            
+            // Loop the melody
+            const loop = new Tone.Loop((time) => {
+               let currentTime = time;
+               notes.forEach(noteObj => {
+                    // Convert '4n', '8n' to actual time values relative to BPM
+                    const durationInSeconds = Tone.Time(noteObj.duration).toSeconds() * tempoMultiplier;
+                    synth.triggerAttackRelease(noteObj.note, noteObj.duration, currentTime);
+                    currentTime += durationInSeconds;
+                });
+            }, Tone.Time("4n").toSeconds() * 26 * tempoMultiplier).start(0); // 26 is roughly the total beats
+            
+            Tone.Transport.start();
+        }
+
+        function blowOut(candleElement) {
+            const flame = candleElement.querySelector('.flame');
+            const smoke = candleElement.querySelector('.smoke');
+            
+            // If already extinguished, do nothing
+            if (flame.classList.contains('extinguished')) return;
+
+            // Extinguish flame
+            flame.classList.add('extinguished');
+            
+            // Show smoke puff
+            smoke.classList.add('active');
+            
+            // Play a small 'puff' sound (using noise)
+            playPuffSound();
+
+            candlesBlown++;
+
+            // Check if all candles are blown
+            if (candlesBlown === totalCandles) {
+                setTimeout(celebrate, 1000); // Wait a second before celebration
+            }
+        }
+        
+        function playPuffSound() {
+            if(!Tone.context) return;
+            const noise = new Tone.Noise("white").start();
+            const noiseEnv = new Tone.AmplitudeEnvelope({
+                attack: 0.01,
+                decay: 0.2,
+                sustain: 0,
+                release: 0.1
+            }).toDestination();
+            
+            // Optional filter for breathy sound
+            const filter = new Tone.Filter(1000, "lowpass").connect(noiseEnv);
+            noise.connect(filter);
+            
+            noiseEnv.triggerAttackRelease("16n");
+        }
+
+        function celebrate() {
+            // Show message
+            document.getElementById('message-container').classList.add('show');
+            
+            // Create confetti
+            createConfetti();
+            
+            // Optional: Change music or play a triumphant chord
+            if(synth) {
+               const poly = new Tone.PolySynth().toDestination();
+               poly.triggerAttackRelease(["C4", "E4", "G4", "C5"], "1n", Tone.now());
+            }
+        }
+
+        function createConfetti() {
+            const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722'];
+            
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // Random position, color, and animation duration
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Random shapes (square or circle)
+                if (Math.random() > 0.5) {
+                    confetti.style.borderRadius = '50%';
+                }
+                
+                const duration = Math.random() * 3 + 2; // 2-5 seconds
+                const delay = Math.random() * 2;
+                
+                confetti.style.animation = `fall ${duration}s linear ${delay}s infinite`;
+                
+                document.body.appendChild(confetti);
+            }
+        }
+    </script>
+</body>
+</html>
